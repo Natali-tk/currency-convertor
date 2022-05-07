@@ -1,0 +1,61 @@
+.px1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.mt2 {
+  margin-top: 2rem;
+}
+.nav-wrapper {
+  font-weight: 5em;
+}
+div.convertor {
+  display: flex;
+  padding-top: 4rem;
+}
+.convertor-box {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+  text-align: center;
+}
+h1 {
+  margin: 0;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  font-size: 3.5rem;
+  color: teal;
+}
+div.convertor-box input.input-amount {
+  width: 10rem;
+  padding: 0.025em 0.5em;
+  background-color: #ffffff;
+}
+
+.equal {
+  font-weight: bold;
+  font-size: 3rem;
+  margin-top: 4rem;
+  margin-top: 4rem;
+}
+select.select-box__cur {
+  display: block;
+  margin-left: 0.5em;
+  max-width: 4.5em;
+}
+.chooseCurrency .chooseCurrencyBox {
+  display: flex;
+}
+li.nav-link {
+  font-weight: 800;
+  font-size: 5rem;
+}
+.select-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
