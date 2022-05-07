@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Navbar } from './components/NavBar';
 import { ConvertorPage } from './pages/ConvertorPage';

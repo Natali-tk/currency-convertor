@@ -6,7 +6,7 @@ export const Navbar: React.FC = () => (
     <div className="nav-wrapper  teal px1">
       <ul className="left hide-on-med-and-dow">
         <li className="nav-link">
-          <NavLink to="/">Конвертор</NavLink>
+          <NavLink to="/">Конвертер</NavLink>
         </li>
         <li className="nav-link">
           <NavLink to="/about">Курс обміну</NavLink>

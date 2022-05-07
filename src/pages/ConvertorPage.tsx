@@ -67,7 +67,7 @@ export const ConvertorPage: React.FC = () => {
 
   return (
     <>
-      <h1>Convert</h1>
+      <h1>Конвертер</h1>
       <div className="convert">
         <CurrencyRow
           currencyOptions={currencyOptions}
