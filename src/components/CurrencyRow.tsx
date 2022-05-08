@@ -15,7 +15,8 @@ export const CurrencyRow: React.FC<ICurrProps> = ({
         type="number"
         pattern="^\d+(\.|\,)\d{2}"
         className="input-amount"
-        value={amount === 0 ? '' : Number(amount.toFixed(2))}
+        min="0"
+        value={amount <= 0 ? '' : Number(amount.toFixed(2))}
         onChange={onChangeAmount}
       />
       <select

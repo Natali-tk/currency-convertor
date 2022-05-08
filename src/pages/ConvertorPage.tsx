@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CurrencyRow } from '../components/CurrencyRow';
 import getCurrencyRates from '../components/api/currency-api';
 import { ICurrency } from '../interfaces/ICurrency';
+import { findExchRate } from '../components/helpers/findExchangeRate';
 
 export const ConvertorPage: React.FC = () => {
   const [currencyOptions, setCurrencyOptions] = useState(['UAH']);
@@ -24,34 +25,7 @@ export const ConvertorPage: React.FC = () => {
     getCurrencyRates().then(data => {
       const currencyArr = data.map((item: ICurrency) => item.cc);
       setCurrencyOptions(prevState => [...prevState, ...currencyArr]);
-      const findExchRate = (from: string, to: string) => {
-        if (fromCurrency != null && toCurrency != null) {
-          let exchangeRate;
-          if (from === to) {
-            exchangeRate = 1;
-          } else if (from === 'UAH') {
-            const exchangeRate2 = data.find(
-              (item: ICurrency) => item.cc === to,
-            ).rate;
-            exchangeRate = 1 / exchangeRate2;
-          } else if (to === 'UAH') {
-            const exchangeRate1 = data.find(
-              (item: ICurrency) => item.cc === from,
-            ).rate;
-            exchangeRate = exchangeRate1 / 1;
-          } else if (data !== undefined && from && to) {
-            const exchangeRate1 = data.find(
-              (item: ICurrency) => item.cc === from,
-            ).rate;
-            const exchangeRate2 = data.find(
-              (item: ICurrency) => item.cc === to,
-            ).rate;
-            exchangeRate = exchangeRate1 / exchangeRate2;
-          }
-          return exchangeRate;
-        }
-      };
-      setExchangeRate(findExchRate(fromCurrency, toCurrency));
+      setExchangeRate(findExchRate(fromCurrency, toCurrency, data));
     });
   }, [fromCurrency, toCurrency]);
 
