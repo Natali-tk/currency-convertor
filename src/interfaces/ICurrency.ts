@@ -3,5 +3,5 @@ export interface ICurrency {
   exchangedate: string;
   r030: number;
   rate: number;
-  txt: 'string';
+  txt: string;
 }
