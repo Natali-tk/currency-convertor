@@ -1,4 +1,4 @@
-import { ICurrency } from '../../interfaces/ICurrency';
+import { ICurrency } from '../interfaces/ICurrency';
 
 export const findExchRate = (from: string, to: string, data: ICurrency[]) => {
   if (from != null && to != null) {

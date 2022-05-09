@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getCurrencyRates from '../components/api/currency-api';
+import getCurrencyRates from '../api/currency-api';
 import { Table } from '../components/Table/Table';
 import { Selector } from '../components/Selector';
 import { ICurrency } from '../interfaces/ICurrency';

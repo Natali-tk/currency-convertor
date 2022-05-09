@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CurrencyRow } from '../components/CurrencyRow';
-import getCurrencyRates from '../components/api/currency-api';
+import getCurrencyRates from '../api/currency-api';
 import { ICurrency } from '../interfaces/ICurrency';
-import { findExchRate } from '../components/helpers/findExchangeRate';
+import { findExchRate } from '../helpers/findExchangeRate';
 
 export const ConvertorPage: React.FC = () => {
   const [currencyOptions, setCurrencyOptions] = useState(['UAH']);
@@ -46,8 +46,10 @@ export const ConvertorPage: React.FC = () => {
         <CurrencyRow
           currencyOptions={currencyOptions}
           selectedCurrency={fromCurrency}
-          onChangeCurrency={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            setFromCurrency(event.target.value)
+          onChangeCurrency={
+            (event: React.ChangeEvent<HTMLSelectElement>) =>
+              setFromCurrency(event.target.value)
+            // dispatch(setFromCurrency(event.target.value))
           }
           onChangeAmount={handleFromAmountChange}
           amount={fromAmount}
@@ -56,8 +58,10 @@ export const ConvertorPage: React.FC = () => {
         <CurrencyRow
           currencyOptions={currencyOptions}
           selectedCurrency={toCurrency}
-          onChangeCurrency={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            setToCurrency(event.target.value)
+          onChangeCurrency={
+            (event: React.ChangeEvent<HTMLSelectElement>) =>
+              setToCurrency(event.target.value)
+            // dispatch(setToCurrency(event.target.value))
           }
           onChangeAmount={handleToAmountChange}
           amount={toAmount}
