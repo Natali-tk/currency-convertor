@@ -2,30 +2,28 @@ import React from 'react';
 import shortid from 'shortid';
 import { TableHeader } from './TableHeader';
 import { TableRow } from './TableRow';
-import { ICurrency } from '../../interfaces/ICurrency';
+import { Currency } from '../../types/Currency';
 
-interface IProps {
-  currencies: ICurrency[];
+type Props = {
+  currencies: Currency[];
   baseCurrency: string;
-}
+};
 
-export const Table: React.FC<IProps> = ({ currencies, baseCurrency }) => {
+export const Table: React.FC<Props> = ({ currencies, baseCurrency }) => {
   let base: number;
   const findObj = currencies.find(currency => currency.cc === baseCurrency);
   if (baseCurrency === 'UAH') {
     base = 1;
-  } else if (findObj) {
+  } else if (findObj !== undefined) {
     base = findObj.rate;
   }
 
-  return currencies ? (
-    <table className="centered bordered highlight">
+  return (
+    <table>
       <TableHeader />
-      {currencies?.map((currency: ICurrency) => (
+      {currencies?.map((currency: Currency) => (
         <TableRow currency={currency} base={base} key={shortid.generate()} />
       ))}
     </table>
-  ) : (
-    <div>loading...</div>
   );
 };

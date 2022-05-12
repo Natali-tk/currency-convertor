@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyRow } from '../components/CurrencyRow';
-import getCurrencyRates from '../api/currency-api';
-import { ICurrency } from '../interfaces/ICurrency';
 import { findExchRate } from '../helpers/findExchangeRate';
+import {
+  getPendingSelector,
+  getCurrenciesSelector,
+  getErrorSelector,
+  getCurrencyOptions,
+} from '../store/currency/selectors';
+import { fetchCurrencyRequest } from '../store/currency/actions';
+import {
+  getAmountInFromCurrencySelector,
+  getAmountSelector,
+  getFromCurrencySelector,
+  getToCurrencySelector,
+} from '../store/filters/filters-selectors';
+
+import { FilterActionsCreator } from '../store/filters';
+import { Equal, Title } from '../styles/styles';
 
 export const ConvertorPage: React.FC = () => {
-  const [currencyOptions, setCurrencyOptions] = useState(['UAH']);
-  const [fromCurrency, setFromCurrency] = useState('UAH');
-  const [toCurrency, setToCurrency] = useState('USD');
-  const [amount, setAmount] = useState(1);
-  const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
   const [exchangeRate, setExchangeRate] = useState<any>();
 
+  const dispatch = useDispatch();
+  const pending = useSelector(getPendingSelector);
+  const currencies = useSelector(getCurrenciesSelector);
+  const currArr = useSelector(getCurrencyOptions);
+  const currencyOptions = ['UAH', ...currArr];
+  const error = useSelector(getErrorSelector);
+  const fromCurrency = useSelector(getFromCurrencySelector);
+  const toCurrency = useSelector(getToCurrencySelector);
+  const amount = useSelector(getAmountSelector);
+  const amountInFromCurrency = useSelector(getAmountInFromCurrencySelector);
+
   let fromAmount: number, toAmount: number;
-  if (amountInFromCurrency && exchangeRate !== undefined) {
+  if (amountInFromCurrency) {
     fromAmount = amount;
     toAmount = amount * exchangeRate;
   } else {
@@ -22,51 +43,53 @@ export const ConvertorPage: React.FC = () => {
   }
 
   useEffect(() => {
-    getCurrencyRates().then(data => {
-      const currencyArr = data.map((item: ICurrency) => item.cc);
-      setCurrencyOptions(prevState => [...prevState, ...currencyArr]);
-      setExchangeRate(findExchRate(fromCurrency, toCurrency, data));
-    });
-  }, [fromCurrency, toCurrency]);
+    dispatch(fetchCurrencyRequest());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setExchangeRate(findExchRate(fromCurrency, toCurrency, currencies));
+  }, [fromCurrency, toCurrency, currencies]);
 
   function handleFromAmountChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setAmount(Number(event.target.value));
-    setAmountInFromCurrency(true);
+    dispatch(FilterActionsCreator.setAmount(Number(event.target.value)));
+    dispatch(FilterActionsCreator.setAmountInFromCurrency(true));
   }
 
   function handleToAmountChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setAmount(Number(event.target.value));
-    setAmountInFromCurrency(false);
+    dispatch(FilterActionsCreator.setAmount(Number(event.target.value)));
+    dispatch(FilterActionsCreator.setAmountInFromCurrency(false));
   }
 
   return (
     <>
-      <h1>Конвертер</h1>
-      <div className="convert">
-        <CurrencyRow
-          currencyOptions={currencyOptions}
-          selectedCurrency={fromCurrency}
-          onChangeCurrency={
-            (event: React.ChangeEvent<HTMLSelectElement>) =>
-              setFromCurrency(event.target.value)
-            // dispatch(setFromCurrency(event.target.value))
-          }
-          onChangeAmount={handleFromAmountChange}
-          amount={fromAmount}
-        />
-        <span className="equal">=</span>
-        <CurrencyRow
-          currencyOptions={currencyOptions}
-          selectedCurrency={toCurrency}
-          onChangeCurrency={
-            (event: React.ChangeEvent<HTMLSelectElement>) =>
-              setToCurrency(event.target.value)
-            // dispatch(setToCurrency(event.target.value))
-          }
-          onChangeAmount={handleToAmountChange}
-          amount={toAmount}
-        />
-      </div>
+      <Title>Конвертер</Title>
+      {pending ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error</div>
+      ) : (
+        <div>
+          <CurrencyRow
+            currencyOptions={currencyOptions}
+            selectedCurrency={fromCurrency}
+            onChangeCurrency={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              dispatch(FilterActionsCreator.setFromCurrency(event.target.value))
+            }
+            onChangeAmount={handleFromAmountChange}
+            amount={fromAmount}
+          />
+          <Equal className="equal">=</Equal>
+          <CurrencyRow
+            currencyOptions={currencyOptions}
+            selectedCurrency={toCurrency}
+            onChangeCurrency={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              dispatch(FilterActionsCreator.setToCurrency(event.target.value))
+            }
+            onChangeAmount={handleToAmountChange}
+            amount={toAmount}
+          />
+        </div>
+      )}
     </>
   );
 };

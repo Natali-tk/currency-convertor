@@ -1,8 +1,9 @@
 import React from 'react';
-import { ICurrProps } from '../interfaces/ICurrProps';
+import { CurrProps } from '../types/CurrProps';
 import shortid from 'shortid';
+import { ConvertorBox, InputAmount, Select } from '../styles/styles';
 
-export const CurrencyRow: React.FC<ICurrProps> = ({
+export const CurrencyRow: React.FC<CurrProps> = ({
   currencyOptions,
   selectedCurrency,
   amount,
@@ -10,26 +11,20 @@ export const CurrencyRow: React.FC<ICurrProps> = ({
   onChangeAmount,
 }) => {
   return (
-    <div className="convertor-box">
-      <input
+    <ConvertorBox>
+      <InputAmount
         type="number"
         pattern="^\d+(\.|\,)\d{2}"
-        className="input-amount"
-        min="0"
-        value={amount <= 0 ? '' : Number(amount.toFixed(2))}
+        value={amount <= 0 ? '' : Number(amount.toFixed(4))}
         onChange={onChangeAmount}
       />
-      <select
-        className="select-box__cur"
-        value={selectedCurrency}
-        onChange={onChangeCurrency}
-      >
+      <Select value={selectedCurrency} onChange={onChangeCurrency}>
         {currencyOptions.map(option => (
           <option key={shortid.generate()} value={option}>
             {option}
           </option>
         ))}
-      </select>
-    </div>
+      </Select>
+    </ConvertorBox>
   );
 };

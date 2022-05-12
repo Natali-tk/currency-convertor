@@ -1,19 +1,19 @@
 import React from 'react';
 import shortid from 'shortid';
-import { ICurrency } from '../../interfaces/ICurrency';
+import { Currency } from '../../types/Currency';
 
-interface IProps {
-  currency: ICurrency;
+type Props = {
+  currency: Currency;
   base: number;
-}
+};
 
-export const TableRow: React.FC<IProps> = ({ currency, base }) => {
+export const TableRow: React.FC<Props> = ({ currency, base }) => {
   return (
-    <tbody className="table__row" key={shortid.generate()}>
+    <tbody key={shortid.generate()}>
       <tr>
         <td>{currency.cc}</td>
         <td>{currency.txt}</td>
-        <td>{(currency.rate / base).toFixed(2)}</td>
+        <td>{(currency.rate / base).toFixed(4)}</td>
       </tr>
     </tbody>
   );

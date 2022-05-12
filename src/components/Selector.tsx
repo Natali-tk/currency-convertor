@@ -1,30 +1,31 @@
 import React from 'react';
 import shortid from 'shortid';
+import { SelectBox, Select } from '../styles/styles';
 
-interface IProps {
-  currency: string[];
+type Props = {
+  currencySelect: string[];
   baseCurrency: string;
   handleChangeSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-}
+};
 
-export const Selector: React.FC<IProps> = ({
-  currency,
+export const Selector: React.FC<Props> = ({
+  currencySelect,
   baseCurrency,
   handleChangeSelect,
 }) => {
   return (
-    <div className="select-box">
-      <select
+    <SelectBox>
+      <Select
         className="select-box__cur"
         value={baseCurrency}
         onChange={handleChangeSelect}
       >
-        {currency.map(option => (
+        {currencySelect.map(option => (
           <option key={shortid.generate()} value={option}>
             {option}
           </option>
         ))}
-      </select>
-    </div>
+      </Select>
+    </SelectBox>
   );
 };
