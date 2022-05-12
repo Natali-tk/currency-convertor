@@ -1,4 +1,4 @@
-import { CurrencyActionType } from './actionTypes';
+import { CurrencyActionType } from './currency-actionTypes';
 import { Currency } from '../../types/Currency';
 
 export type FetchCurrencySuccessPayload = {

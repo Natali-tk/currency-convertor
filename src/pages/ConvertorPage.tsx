@@ -7,8 +7,8 @@ import {
   getCurrenciesSelector,
   getErrorSelector,
   getCurrencyOptions,
-} from '../store/currency/selectors';
-import { fetchCurrencyRequest } from '../store/currency/actions';
+} from '../store/currency/currency-selectors';
+import { fetchCurrencyRequest } from '../store/currency';
 import {
   getAmountInFromCurrencySelector,
   getAmountSelector,

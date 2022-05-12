@@ -7,8 +7,8 @@ import {
   getCurrenciesSelector,
   getErrorSelector,
   getCurrencyOptions,
-} from '../store/currency/selectors';
-import { fetchCurrencyRequest } from '../store/currency/actions';
+} from '../store/currency/currency-selectors';
+import { fetchCurrencyRequest } from '../store/currency';
 import { getBaseCurrencySelector } from '../store/filters/filters-selectors';
 import { FilterActionsCreator } from '../store/filters';
 import { Title } from '../styles/styles';

@@ -1,8 +1,9 @@
-export { CurrencyActionType } from './actionTypes';
+export { CurrencyActionType } from './currency-actionTypes';
 export {
   fetchCurrencyRequest,
   fetchCurrencySuccess,
   fetchCurrencyFailure,
-} from './actions';
-export { currencyReducer } from './reducer';
-export { currencySaga } from './sagas';
+} from './currency-actions';
+export { currencyReducer } from './currency-slicers';
+export { CurrencyActionCreators } from './currency-slicers';
+export { currencySaga } from './currency-sagas';

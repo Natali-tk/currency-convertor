@@ -5,7 +5,7 @@ import {
   FetchCurrencySuccessPayload,
   FetchCurrencyFailure,
   FetchCurrencyFailurePayload,
-} from './types';
+} from './currency-types';
 
 const fetchCurrencyRequest = (): FetchCurrencyRequest => ({
   type: CurrencyActionType.FETCH_CURRENCY_REQUEST,
