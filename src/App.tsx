@@ -1,22 +1,12 @@
-import React, { Suspense } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
 import { Navbar } from './components/NavBar';
-import { ConvertorPage } from './pages/ConvertorPage';
-import { ExchangeRatePage } from './pages/ExchangeRatePage';
+import { RouterReact } from './routers/routers';
 
 const App: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="container">
-        <Switch>
-          <Suspense fallback={<p>Loading...</p>}>
-            <Route component={ConvertorPage} path="/" exact />
-            <Route component={ExchangeRatePage} path="/about" />
-            <Redirect to="/" />
-          </Suspense>
-        </Switch>
-      </div>
+      <RouterReact />
     </>
   );
 };
